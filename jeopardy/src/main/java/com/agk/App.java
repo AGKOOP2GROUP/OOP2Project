@@ -1,13 +1,14 @@
 package com.agk;
 
-/**
- * Hello world!
- *
- */
+import com.agk.parser.xmlParser;
+
+
+
 public class App 
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+       xmlParser parser = new xmlParser();
+       parser.parseFile(); 
     }
 }
