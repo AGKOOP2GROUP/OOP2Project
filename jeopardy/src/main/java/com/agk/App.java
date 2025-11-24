@@ -1,5 +1,6 @@
 package com.agk;
 
+import com.agk.parser.csvParser;
 import com.agk.parser.xmlParser;
 
 
@@ -10,5 +11,8 @@ public class App
     {
        xmlParser parser = new xmlParser();
        parser.parseFile(); 
+
+       csvParser csvparser = new csvParser();
+       csvparser.parseFile();
     }
 }
