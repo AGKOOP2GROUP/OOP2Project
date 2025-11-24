@@ -12,6 +12,8 @@ public class csvParser implements ParserInterface {
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();
     List<QuestionItem> questions = new ArrayList<>(); 
 
+    public csvParser() {}
+
     @Override
     public void parseFile() {
         String csvFile = "sample_game_CSV.csv";
@@ -25,7 +27,9 @@ public class csvParser implements ParserInterface {
                 String[] row = line.split(",");
                 QuestionItem questionItem = new QuestionItem();
                 questionItem.setCategory(row[0]);
-                questionItem.setValue(row[1]);
+                String val = row[1];
+                int valInt = Integer.parseInt(val);
+                questionItem.setValue(valInt);
                 questionItem.setQuestion(row[2]);
                 String[] options = {row[3], row[4], row[5], row[6]};
                 questionItem.setOptions(options);

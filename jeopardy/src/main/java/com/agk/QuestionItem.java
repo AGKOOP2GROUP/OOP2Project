@@ -5,7 +5,7 @@ public class QuestionItem {
     @JacksonXmlProperty(localName = "Category")
     private String category;
     @JacksonXmlProperty(localName = "Value")
-    private String value;
+    private int value;
     @JacksonXmlProperty(localName = "QuestionText")
     private String question;
     @JacksonXmlProperty(localName = "Options")
@@ -20,7 +20,7 @@ public class QuestionItem {
         return category;
     }  
 
-    public String getValue(){
+    public int getValue(){
         return value;
     }
 
@@ -40,7 +40,7 @@ public class QuestionItem {
         this.category = category;
     }
 
-    public void setValue(String value){
+    public void setValue(int value){
         this.value = value;
     }   
 
