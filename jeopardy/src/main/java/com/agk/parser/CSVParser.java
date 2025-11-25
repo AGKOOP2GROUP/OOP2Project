@@ -16,7 +16,7 @@ public class CSVParser implements ParserInterface {
 
     @Override
     public void parseFile() {
-        String csvFile = "sample_game_CSV.csv";
+        String csvFile = "jeopardy\\src\\main\\resources\\sample_game_CSV.csv";
         BufferedReader reader = null;
         String line = "";
 

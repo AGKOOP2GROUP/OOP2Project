@@ -13,7 +13,7 @@ public class XMLParser implements ParserInterface {
     public void parseFile (){
         try {
             XmlMapper mapper = new XmlMapper();
-            InputStream input = new FileInputStream("sample_game_XML.xml");
+            InputStream input = new FileInputStream("jeopardy\\src\\main\\resources\\sample_game_XML.xml");
             JeopardyQuestions root = mapper.readValue(input, JeopardyQuestions.class);
             List<QuestionItem> questions = root.getQuestions();
             

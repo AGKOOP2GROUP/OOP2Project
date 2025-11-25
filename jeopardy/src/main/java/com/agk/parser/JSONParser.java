@@ -16,7 +16,7 @@ public class JSONParser implements ParserInterface{
 
     @Override
     public void parseFile() {
-        String jsonFile = "sample_game_JSON.json";
+        String jsonFile = "jeopardy\\src\\main\\resources\\sample_game_JSON.json";
         BufferedReader reader = null;
         String line ;
         String jsonStr = "";

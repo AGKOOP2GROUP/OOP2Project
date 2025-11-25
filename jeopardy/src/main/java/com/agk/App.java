@@ -7,15 +7,6 @@ public class App
 {
     public static void main( String[] args )
     {
-       /* XMLParser parser = new XMLParser();
-       parser.parseFile(); 
-
-       CSVParser csvparser = new CSVParser();
-       csvparser.parseFile();
-
-       JSONParser jsonparser = new JSONParser();
-       jsonparser.parseFile();*/
-
         ParserContext context = new ParserContext();
         context.setParserStrategy(new XMLParser());
         try {
