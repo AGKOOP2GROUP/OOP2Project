@@ -8,11 +8,11 @@ import java.util.List;
 import com.agk.JeopardyQuestions;
 import com.agk.QuestionItem;
 
-public class csvParser implements ParserInterface {
+public class CSVParser implements ParserInterface {
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();
     List<QuestionItem> questions = new ArrayList<>(); 
 
-    public csvParser() {}
+    public CSVParser() {}
 
     @Override
     public void parseFile() {

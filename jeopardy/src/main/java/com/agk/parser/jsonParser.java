@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import com.agk.JeopardyQuestions;
 import com.agk.QuestionItem;
 
-public class jsonParser implements ParserInterface{
+public class JSONParser implements ParserInterface{
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();        
     List<QuestionItem> questions = new ArrayList<>();
 

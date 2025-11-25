@@ -1,20 +1,27 @@
 package com.agk;
 
-import com.agk.parser.csvParser;
-import com.agk.parser.jsonParser;
-import com.agk.parser.xmlParser;
+import com.agk.parser.ParserContext;
+import com.agk.parser.XMLParser;
 
 public class App 
 {
     public static void main( String[] args )
     {
-        xmlParser parser = new xmlParser();
+       /* XMLParser parser = new XMLParser();
        parser.parseFile(); 
 
-       csvParser csvparser = new csvParser();
+       CSVParser csvparser = new CSVParser();
        csvparser.parseFile();
 
-       jsonParser jsonparser = new jsonParser();
-       jsonparser.parseFile();
+       JSONParser jsonparser = new JSONParser();
+       jsonparser.parseFile();*/
+
+        ParserContext context = new ParserContext();
+        context.setParserStrategy(new XMLParser());
+        try {
+            context.parse();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

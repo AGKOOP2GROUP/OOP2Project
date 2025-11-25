@@ -8,7 +8,7 @@ import com.agk.JeopardyQuestions;
 import com.agk.QuestionItem;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
-public class xmlParser implements ParserInterface {
+public class XMLParser implements ParserInterface {
     @Override
     public void parseFile (){
         try {
@@ -16,7 +16,7 @@ public class xmlParser implements ParserInterface {
             InputStream input = new FileInputStream("sample_game_XML.xml");
             JeopardyQuestions root = mapper.readValue(input, JeopardyQuestions.class);
             List<QuestionItem> questions = root.getQuestions();
-            /*
+            
             for (QuestionItem q : questions) {
                 System.out.println("Category: " + q.getCategory());
                 System.out.println("Value: " + q.getValue());
@@ -27,7 +27,7 @@ public class xmlParser implements ParserInterface {
                 }
                 System.out.println("Answer: " + q.getAnswer());
                 System.out.println();
-            }*/
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
