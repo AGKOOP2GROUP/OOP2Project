@@ -1,5 +1,7 @@
 package com.agk.parser;
 
+import com.agk.model.JeopardyQuestions;
+
 public class ParserContext {
     private ParserInterface strategy;
 
@@ -7,7 +9,7 @@ public class ParserContext {
         this.strategy = strategy;
     }
 
-    public void parse() throws Exception {
-        strategy.parseFile();
+    public JeopardyQuestions parse() throws Exception {
+        return strategy.parseFile();
     }
 }

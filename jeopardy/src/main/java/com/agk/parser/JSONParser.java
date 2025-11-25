@@ -7,15 +7,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.agk.JeopardyQuestions;
-import com.agk.QuestionItem;
+import com.agk.model.JeopardyQuestions;
+import com.agk.model.QuestionItem;
 
 public class JSONParser implements ParserInterface{
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();        
     List<QuestionItem> questions = new ArrayList<>();
 
     @Override
-    public void parseFile() {
+    public JeopardyQuestions parseFile() {
         String jsonFile = "jeopardy\\src\\main\\resources\\sample_game_JSON.json";
         BufferedReader reader = null;
         String line ;
@@ -62,6 +62,7 @@ public class JSONParser implements ParserInterface{
             questions.add(questionItem);
         }
         jeopardyQuestions.setQuestions(questions);
+        return jeopardyQuestions;
         
     }
     

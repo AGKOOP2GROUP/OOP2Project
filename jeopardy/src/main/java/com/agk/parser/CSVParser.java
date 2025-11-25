@@ -5,8 +5,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.agk.JeopardyQuestions;
-import com.agk.QuestionItem;
+import com.agk.model.JeopardyQuestions;
+import com.agk.model.QuestionItem;
 
 public class CSVParser implements ParserInterface {
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();
@@ -15,7 +15,7 @@ public class CSVParser implements ParserInterface {
     public CSVParser() {}
 
     @Override
-    public void parseFile() {
+    public JeopardyQuestions parseFile() {
         String csvFile = "jeopardy\\src\\main\\resources\\sample_game_CSV.csv";
         BufferedReader reader = null;
         String line = "";
@@ -59,7 +59,7 @@ public class CSVParser implements ParserInterface {
                 e.printStackTrace();
             }
         }
-        
+        return jeopardyQuestions;
     }
     
 }

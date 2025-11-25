@@ -1,4 +1,4 @@
-package com.agk;
+package com.agk.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
 public class QuestionItem {
