@@ -36,15 +36,16 @@ public class App
             int num = scanner.nextInt();
             scanner.nextLine();
             if(num > 4){
-                System.out.println("The maximumm number of players is 4. Enter another number: ");
+                System.out.print("The maximumm number of players is 4. Enter another number: ");
                 num = scanner.nextInt();
-            }else {
-                for (int i = 0; i<num; i++){
-                    System.out.print("Enter player name: ");
-                    String player = scanner.nextLine();
-                    gameplay.addPlayer(player);
-                }
-            } 
+                scanner.nextLine();
+            }
+            for (int i = 0; i<num; i++){
+                System.out.print("Enter player name: ");
+                String player = scanner.nextLine();
+                gameplay.addPlayer(player);
+            }
+            
             System.out.println(gameplay.getPlayers());
         } catch (Exception e) {
             e.printStackTrace();
