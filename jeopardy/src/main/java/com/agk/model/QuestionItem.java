@@ -17,7 +17,7 @@ public class QuestionItem {
 
 
     public String getCategory(){
-        return category;
+        return category.toLowerCase();
     }  
 
     public int getValue(){

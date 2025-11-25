@@ -35,10 +35,15 @@ public class App
             System.out.print("Enter the number of players: ");
             int num = scanner.nextInt();
             scanner.nextLine();
-            if(num > 4){
-                System.out.print("The maximumm number of players is 4. Enter another number: ");
+            if(num > 4 || num < 1){
+                System.out.print("The maximumm number of players is 4. If another invalid value is entered, a default will be set. Enter number of players: ");
                 num = scanner.nextInt();
                 scanner.nextLine();
+                if(num > 4) {
+                    num = 4;
+                }else if (num < 1){
+                    num = 1;
+                }
             }
             for (int i = 0; i<num; i++){
                 System.out.print("Enter player name: ");
