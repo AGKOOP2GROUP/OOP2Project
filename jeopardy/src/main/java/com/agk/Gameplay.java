@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.agk.model.JeopardyQuestions;
 import com.agk.model.Player;
+import com.agk.model.QuestionItem;
 
 public class Gameplay {
     private String gameId;
@@ -44,21 +45,54 @@ public class Gameplay {
         System.out.println("Player " + p.getId() + ": "+ name + " successfully added to the game!");
     }
 
-    public void play(Gameplay gameplay){
+    public void play(){
+        System.out.println("Welcom to Jeopardy! The game begins now.");
         while(!finished()){
-            Player curr = players.get(currPlayer);
-            System.out.println("Player " + curr.getUsername() + "'s turn!");
+            Player player = players.get(currPlayer);
+            System.out.println("Player " + player.getUsername() + "'s turn!");
 
-            System.out.println("Choose a category from the following or enter 'quit' to quit: " + gameplay.getCategories());
+            System.out.println("Choose a category from the following or enter 'quit' to quit: " + this.getCategories());
             String category = scanner.nextLine().trim().toLowerCase();
             if (category.equals("quit")){
                 System.out.println("Thank you for playing!");
                 break;
             }
-            if (!((gameplay.getCategories()).contains(category))){
-                System.out.println("Invalid category, try again: ");
-                
+            if (!((this.getCategories()).contains(category))){
+                System.out.println("Invalid category");
+                continue;
             }
+            
+            ArrayList<Integer> values = new ArrayList<>();
+            List<QuestionItem> questions;
+            questions = getJeopardyQuestions().getQuestions();
+            for (QuestionItem q: questions){
+                if (q.getCategory().equals(category))
+                    values.add(q.getValue());
+            }
+            System.out.println("Choose a question value from the following: " + values);
+            String valueStr = scanner.nextLine();
+            int value;
+            try { 
+                value = Integer.parseInt(valueStr); 
+            } catch 
+            (NumberFormatException e) { 
+                System.out.println("Invalid value"); 
+                continue;
+            }
+            if (!(values.contains(value))){
+                System.out.println("Invalid value");
+                continue;
+            }
+
+            QuestionItem chosenQ = questions.stream().filter(q -> q.getCategory().equals(category) && q.getValue() == value).findFirst().orElse(null);
+            if (chosenQ == null){
+                System.out.println("Invalid question");
+                continue;
+            }
+            System.out.println("Question: " + chosenQ.getQuestion());
+            
+            currPlayer = (currPlayer + 1) % players.size();
+
         }
         
         

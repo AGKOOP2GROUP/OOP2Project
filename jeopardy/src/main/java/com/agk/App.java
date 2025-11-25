@@ -32,11 +32,14 @@ public class App
             JeopardyQuestions questions = context.parse();
             Gameplay gameplay = new Gameplay(questions);
            // System.out.println("Loaded categories: " + gameplay.getCategories());
-            System.out.print("Enter the number of players: ");
+            System.out.print("Enter the number of players (1-4): ");
             int num = scanner.nextInt();
             scanner.nextLine();
-            if(num > 4 || num < 1){
-                System.out.print("The maximumm number of players is 4. If another invalid value is entered, a default will be set. Enter number of players: ");
+            
+            if (num < 5 && num > 0)
+                num = num;
+            else {
+                System.out.print("If another invalid value is entered, a default will be set. Enter number of players: ");
                 num = scanner.nextInt();
                 scanner.nextLine();
                 if(num > 4) {
@@ -44,16 +47,24 @@ public class App
                 }else if (num < 1){
                     num = 1;
                 }
+                
+           
             }
             for (int i = 0; i<num; i++){
                 System.out.print("Enter player name: ");
                 String player = scanner.nextLine();
                 gameplay.addPlayer(player);
             }
+
+
+
+            gameplay.play();
             
-            System.out.println(gameplay.getPlayers());
+
+           // System.out.println(gameplay.getPlayers());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+
