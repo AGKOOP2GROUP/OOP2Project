@@ -11,6 +11,7 @@ public class TurnRecord {
     public int pointsEarned;
     public int runningTotal;
     public int scoreAfterTurn;
+    public int turnNumber; 
 
       public TurnRecord(String playerName, String category, int value,
                       String question, String answer, boolean correct, int pointsEarned,

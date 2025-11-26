@@ -20,6 +20,9 @@ public class GameResult {
     }
 
     public void addTurn(TurnRecord rec) {
+        turnCounter++;
+        rec.turnNumber = turnCounter;
+
         turns.add(rec);
     }
 
@@ -34,4 +37,9 @@ public class GameResult {
     public List<Player> getFinalPlayers() {
         return finalPlayers;
     }
+
+    private int turnCounter = 0;
+
+
 }
+

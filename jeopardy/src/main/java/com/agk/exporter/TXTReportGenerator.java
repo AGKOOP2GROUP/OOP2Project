@@ -46,6 +46,7 @@ public class TXTReportGenerator extends ReportGenerator {
         writeLine("Gameplay Summary:");
         writeLine("-----------------");
         for (TurnRecord t : turns) {
+            writeLine("Turn: " +t.turnNumber);
             writeLine("Player: " + t.playerName);
             writeLine("Category: " + t.category);
             writeLine("Question Value: " + t.value);
