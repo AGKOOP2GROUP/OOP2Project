@@ -27,7 +27,7 @@ public class App
             System.out.println("Invalid input, defaulting to XML parser.");
             context.setParserStrategy(new XMLParser());
         }
-
+        System.out.println();
         try {
             JeopardyQuestions questions = context.parse();
             Gameplay gameplay = new Gameplay(questions);
@@ -50,6 +50,7 @@ public class App
            
             }
             for (int i = 0; i<num; i++){
+                System.out.println();
                 System.out.print("Enter player name: ");
                 String player = scanner.nextLine();
                 gameplay.addPlayer(player);

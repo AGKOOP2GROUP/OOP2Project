@@ -46,13 +46,16 @@ public class Gameplay {
     }
 
     public void play(){
-        System.out.println("Welcom to Jeopardy! The game begins now.");
+        System.out.println();
+        System.out.println("Welcome to Jeopardy! The game begins now.");
         while(!finished()){
+            System.out.println();
             Player player = players.get(currPlayer);
             System.out.println("Player " + player.getUsername() + "'s turn!");
 
-            System.out.println("Choose a category from the following or enter 'quit' to quit: " + this.getCategories());
+            System.out.println("Choose a category from the following " + this.getCategories() + " or enter 'quit' to end game: " );
             String category = scanner.nextLine().trim().toLowerCase();
+            System.out.println();
             if (category.equals("quit")){
                 System.out.println("Thank you for playing!");
                 break;
@@ -62,6 +65,7 @@ public class Gameplay {
                 continue;
             }
             
+
             ArrayList<Integer> values = new ArrayList<>();
             List<QuestionItem> questions;
             questions = getJeopardyQuestions().getQuestions();
@@ -71,6 +75,7 @@ public class Gameplay {
             }
             System.out.println("Choose a question value from the following: " + values);
             String valueStr = scanner.nextLine();
+            System.out.println();
             int value;
             try { 
                 value = Integer.parseInt(valueStr); 
@@ -94,7 +99,19 @@ public class Gameplay {
             System.out.println("B. " + chosenQ.getOptions().getOptionB());
             System.out.println("C. " + chosenQ.getOptions().getOptionC());
             System.out.println("D. " + chosenQ.getOptions().getOptionD());
-            
+
+            System.out.print("Choose an answer: ");
+            String selectedAnswer = scanner.nextLine().toUpperCase();
+            if(selectedAnswer.equals(chosenQ.getAnswer())){
+                player.updateScore(value);
+                System.out.println("Correct! You gained " + value + " points.");
+            }
+            else {
+                player.updateScore(-(value));
+                System.out.println("Inorrect :( , you lost " + value + " points.");
+            }
+
+            System.out.println();
             currPlayer = (currPlayer + 1) % players.size();
 
         }
