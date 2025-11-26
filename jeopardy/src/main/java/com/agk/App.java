@@ -3,11 +3,18 @@ package com.agk;
 
 import java.util.Scanner;
 
+// import com.agk.exporter.DOCXReportGenerator;
+// import com.agk.exporter.PDFReportGenerator;
+import com.agk.exporter.ReportGenerator;
+import com.agk.exporter.TXTReportGenerator;
 import com.agk.model.JeopardyQuestions;
+import com.agk.model.TurnRecord;
 import com.agk.parser.CSVParser;
 import com.agk.parser.JSONParser;
 import com.agk.parser.ParserContext;
 import com.agk.parser.XMLParser;
+import com.agk.model.GameResult;
+
 
 public class App 
 {
@@ -63,7 +70,17 @@ public class App
             }
 
             gameplay.play(); //start game
+
+
+            ////////////////////////////////////////
+            ReportGenerator generator;
+            generator = new TXTReportGenerator();
+
+            generator.generateReport(gameplay.getGameResult());
             
+            /////////////////////////////////////////
+
+
            //System.out.println(gameplay.getPlayers());
         } catch (Exception e) {
             e.printStackTrace();

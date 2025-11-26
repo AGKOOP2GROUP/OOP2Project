@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.agk.model.GameResult;
 import com.agk.model.JeopardyQuestions;
 import com.agk.model.Player;
 import com.agk.model.QuestionItem;
+import com.agk.model.TurnRecord;
 
 public class Gameplay {
     //private String gameId;
@@ -16,6 +18,8 @@ public class Gameplay {
     private int currPlayer = 0;
     Scanner scanner = new Scanner(System.in);
 
+    
+
     public Gameplay(JeopardyQuestions jeopardyQuestions) {  //constructor
         this.jeopardyQuestions = jeopardyQuestions;
     }
@@ -23,6 +27,11 @@ public class Gameplay {
     //getters
     public JeopardyQuestions getJeopardyQuestions() {
         return jeopardyQuestions;
+    }
+    private GameResult result = new GameResult();
+
+    public GameResult getGameResult() {
+        return result;
     }
 
     public List<String> getCategories() {
@@ -113,22 +122,48 @@ public class Gameplay {
             //allow user to answer 
             System.out.print("Choose an answer: ");
             String selectedAnswer = scanner.nextLine().toUpperCase();
+            boolean correct = true;
+            int pointsEarned = 0; 
             if(selectedAnswer.equals(chosenQ.getAnswer())){     //if their answer is correct, add their points to their score
                 player.updateScore(value);
                 System.out.println("Correct! You gained " + value + " points.");
+                pointsEarned = value;
+                correct = true;
             }
             else {      //if their answer is incorrect, minus the points from their score
                 player.updateScore(-(value));
                 System.out.println("Inorrect :( , you lost " + value + " points.");
+                correct = false;
+                pointsEarned = 0;
             }
             chosenQ.setUsed(true);   //so question will not be asked again
 
+            
             //display the player's current score
             System.out.println("Player " + player.getUsername() + "'s current score: " + player.getScore());
             System.out.println("-----------------------------------------------------------------------------------------");
 
+
+            TurnRecord rec = new TurnRecord(
+                    player.getUsername(),
+                    category,
+                    value,
+                    chosenQ.getQuestion(),
+                    selectedAnswer,
+                    correct,
+                    pointsEarned,
+                    player.getScore()       // scoreAfterTurn
+            );
+
+            result.addTurn(rec);
+
+
+
+
             System.out.println();
             currPlayer = (currPlayer + 1) % players.size();     //move on to the next player
+            result.setFinalPlayers(new ArrayList<>(players));
+
 
         }
         
