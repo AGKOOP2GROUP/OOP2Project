@@ -35,6 +35,7 @@ public class App
             
             //Request and accept number of players from user
             System.out.print("Enter the number of players (1-4): ");
+
             int num = scanner.nextInt();
             scanner.nextLine();
             

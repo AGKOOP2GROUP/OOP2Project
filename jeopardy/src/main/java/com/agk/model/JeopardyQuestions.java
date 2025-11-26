@@ -37,4 +37,20 @@ public class JeopardyQuestions {
         return categories;
     }
 
+    public List<String> getAvailableCategories() {
+        List<String> categories = new ArrayList<>();
+        if (questions == null) 
+            return categories;
+        for (QuestionItem q : questions) {      //to check if category is already listed
+            if (!categories.contains(q.getCategory()) && !allCatUsed(q.getCategory())) {
+                categories.add(q.getCategory());
+            }
+        }
+        return categories;
+    }
+
+    public boolean allCatUsed(String category){
+        return questions.stream().filter(q -> q.getCategory().equals(category)).allMatch(QuestionItem::isUsed);
+    }
+
 }

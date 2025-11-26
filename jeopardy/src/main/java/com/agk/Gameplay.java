@@ -57,15 +57,19 @@ public class Gameplay {
             Player player = players.get(currPlayer);    //current player for this round 
             System.out.println("Player " + player.getUsername() + "'s turn!");
 
+            System.out.println();
+            showAvailable(getCategories());
+            System.out.println();
+
             //to allow player to choose a category
-            System.out.println("Choose a category from the following " + this.getCategories() + " or enter 'quit' to end game: " );
+            System.out.println("Choose a category from the following " + jeopardyQuestions.getAvailableCategories() + " or enter 'quit' to end game: " );
             String category = scanner.nextLine().trim().toLowerCase();
             System.out.println();
             if (category.equals("quit")){   //end game
                 System.out.println("Thank you for playing!");
                 break;
             }
-            if (!((this.getCategories()).contains(category))){  //if category does not exist
+            if (!((jeopardyQuestions.getAvailableCategories()).contains(category))){  //if category does not exist
                 System.out.println("Invalid category");
                 continue;
             }
@@ -73,7 +77,7 @@ public class Gameplay {
             //to allow player to choose a question value
             ArrayList<Integer> values = new ArrayList<>();
             for (QuestionItem q: questions){    //get values for the chosen category
-                if (q.getCategory().equals(category))
+                if (q.getCategory().equals(category) && !q.isUsed())
                     values.add(q.getValue());
             }
             System.out.println("Choose a question value from the following: " + values);
@@ -94,7 +98,7 @@ public class Gameplay {
             }
 
             //filter questions by category and value to find the chosen question
-            QuestionItem chosenQ = questions.stream().filter(q -> q.getCategory().equals(category) && q.getValue() == value).findFirst().orElse(null);
+            QuestionItem chosenQ = questions.stream().filter(q -> q.getCategory().equals(category) && q.getValue() == value && !(q.isUsed())).findFirst().orElse(null);
             if (chosenQ == null){
                 System.out.println("Invalid question");
                 continue;
@@ -117,8 +121,11 @@ public class Gameplay {
                 player.updateScore(-(value));
                 System.out.println("Inorrect :( , you lost " + value + " points.");
             }
+            chosenQ.setUsed(true);   //so question will not be asked again
+
             //display the player's current score
             System.out.println("Player " + player.getUsername() + "'s current score: " + player.getScore());
+            System.out.println("-----------------------------------------------------------------------------------------");
 
             System.out.println();
             currPlayer = (currPlayer + 1) % players.size();     //move on to the next player
@@ -129,6 +136,46 @@ public class Gameplay {
     }
 
     private boolean finished(){
-        return false;
+        //System.out.println("No more questions available. Thank you for playing!");
+        return jeopardyQuestions.getQuestions().stream().allMatch(QuestionItem::isUsed);
+    }
+
+    private void showAvailable(List<String> categories){ // display board with categories and values available
+        System.out.println("AVAILABLE QUESTIONS");
+        System.out.println("---------------------");
+
+        List<Integer> allVal = new ArrayList<>();
+        allVal.add(100);
+        allVal.add(200);
+        allVal.add(300);
+        allVal.add(400);
+        allVal.add(500);
+
+        System.out.print(String.format("%-30s", "Category")); //category heading
+        for (Integer val : allVal){
+            System.out.print(String.format("%-10s", val));//value headings
+
+        }  
+        System.out.println();
+
+        for(String cat : categories){
+            System.out.print(String.format("%-30s", cat));
+
+            for (Integer val: allVal){
+                QuestionItem qu = jeopardyQuestions.getQuestions().stream().filter(q -> q.getCategory().equals(cat) && q.getValue() == val).findFirst().orElse(null);
+                if (qu == null){
+                    System.out.print(String.format("%-10s", " "));
+                }
+                else {
+                    if (qu.isUsed()){
+                        System.out.print(String.format("%-10s", "X"));
+                    }
+                    else {
+                        System.out.print(String.format("%-10s", val));
+                    }
+                }
+            }
+            System.out.println();
+        }       
     }
 }

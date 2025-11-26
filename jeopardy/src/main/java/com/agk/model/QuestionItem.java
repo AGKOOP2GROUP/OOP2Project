@@ -14,6 +14,8 @@ public class QuestionItem {
     @JacksonXmlProperty(localName = "CorrectAnswer")
     private String answer;
 
+    private boolean used = false;
+
     public QuestionItem(){}
 
     //getters
@@ -37,6 +39,10 @@ public class QuestionItem {
     public String getAnswer(){
         return answer;
     }
+
+    public boolean isUsed(){
+        return used;
+    }
     
     //setters
     public void setCategory(String category){
@@ -57,6 +63,10 @@ public class QuestionItem {
 
     public void setAnswer(String answer){
         this.answer = answer;
+    }
+
+    public void setUsed(boolean used){
+        this.used = used;
     }
     
 }
