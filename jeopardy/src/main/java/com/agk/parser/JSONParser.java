@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.agk.model.JeopardyQuestions;
+import com.agk.model.Options;
 import com.agk.model.QuestionItem;
 
 public class JSONParser implements ParserInterface{
@@ -40,21 +41,22 @@ public class JSONParser implements ParserInterface{
             questionItem.setQuestion(object.getString("Question"));
 
             JSONObject options = object.getJSONObject("Options");
-            String[] optionsArr = new String[options.length()];
-            optionsArr[0] = options.getString("A");
-            optionsArr[1] = options.getString("B");
-            optionsArr[2] = options.getString("C");
-            optionsArr[3] = options.getString("D");
-            questionItem.setOptions(optionsArr);
+            Options op = new Options();
+            op.setOptionA(options.getString("A"));
+            op.setOptionB(options.getString("B"));
+            op.setOptionC(options.getString("C"));
+            op.setOptionD(options.getString("D"));
+            questionItem.setOptions(op);
 
             questionItem.setAnswer(jsonArr.getJSONObject(i).getString("CorrectAnswer"));
             /*
             System.out.println(questionItem.getCategory());
             System.out.println(questionItem.getValue());
             System.out.println(questionItem.getQuestion());
-            for (String option : questionItem.getOptions()) {
-                System.out.println(option);
-            }
+            System.out.println(questionItem.getOptions().getOptionA());
+            System.out.println(questionItem.getOptions().getOptionB());
+            System.out.println(questionItem.getOptions().getOptionC());
+            System.out.println(questionItem.getOptions().getOptionD());
             System.out.println(questionItem.getAnswer());
             System.out.println();
             */

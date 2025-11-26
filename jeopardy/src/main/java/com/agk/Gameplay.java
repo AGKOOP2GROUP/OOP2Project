@@ -90,6 +90,10 @@ public class Gameplay {
                 continue;
             }
             System.out.println("Question: " + chosenQ.getQuestion());
+            System.out.println("A. " + chosenQ.getOptions().getOptionA());
+            System.out.println("B. " + chosenQ.getOptions().getOptionB());
+            System.out.println("C. " + chosenQ.getOptions().getOptionC());
+            System.out.println("D. " + chosenQ.getOptions().getOptionD());
             
             currPlayer = (currPlayer + 1) % players.size();
 

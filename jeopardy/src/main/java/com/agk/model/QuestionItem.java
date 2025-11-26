@@ -9,12 +9,11 @@ public class QuestionItem {
     @JacksonXmlProperty(localName = "QuestionText")
     private String question;
     @JacksonXmlProperty(localName = "Options")
-    private String[] options;
+    private Options options;
     @JacksonXmlProperty(localName = "CorrectAnswer")
     private String answer;
 
     public QuestionItem(){}
-
 
     public String getCategory(){
         return category.toLowerCase();
@@ -28,8 +27,9 @@ public class QuestionItem {
         return question;
     }
 
-    public String[] getOptions(){
+    public Options getOptions(){
         return options;
+
     }
 
     public String getAnswer(){
@@ -48,7 +48,7 @@ public class QuestionItem {
         this.question = question;
     }
 
-    public void setOptions(String[] options){
+    public void setOptions(Options options){
         this.options = options;
     }
 

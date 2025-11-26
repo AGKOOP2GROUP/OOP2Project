@@ -47,21 +47,18 @@ public class App
                 }else if (num < 1){
                     num = 1;
                 }
-                
            
             }
             for (int i = 0; i<num; i++){
                 System.out.print("Enter player name: ");
                 String player = scanner.nextLine();
                 gameplay.addPlayer(player);
+
             }
-
-
 
             gameplay.play();
             
-
-           // System.out.println(gameplay.getPlayers());
+           //System.out.println(gameplay.getPlayers());
         } catch (Exception e) {
             e.printStackTrace();
         }

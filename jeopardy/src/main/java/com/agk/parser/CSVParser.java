@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.agk.model.JeopardyQuestions;
+import com.agk.model.Options;
 import com.agk.model.QuestionItem;
+
 
 public class CSVParser implements ParserInterface {
     JeopardyQuestions jeopardyQuestions = new JeopardyQuestions();
@@ -31,7 +33,12 @@ public class CSVParser implements ParserInterface {
                 int valInt = Integer.parseInt(val);
                 questionItem.setValue(valInt);
                 questionItem.setQuestion(row[2]);
-                String[] options = {row[3], row[4], row[5], row[6]};
+                Options options = new Options();
+                options.setOptionA(row[3]);
+                options.setOptionB(row[4]);
+                options.setOptionC(row[5]);
+                options.setOptionD(row[6]);
+                //String[] options = {row[3], row[4], row[5], row[6]};
                 questionItem.setOptions(options);
                 questionItem.setAnswer(row[7]);
                 /*
@@ -39,12 +46,17 @@ public class CSVParser implements ParserInterface {
                 System.out.println("Value: " + questionItem.getValue());
                 System.out.println("Question: " + questionItem.getQuestion());
                 System.out.println("Options: ");
-                for (String option : questionItem.getOptions()) {
-                    System.out.println(option);
-                }
+                //for (String option : questionItem.getOptions()) {
+                //    System.out.println(option);
+                //}
+                System.out.println(questionItem.getOptions().getOptionA());
+                System.out.println(questionItem.getOptions().getOptionB());
+                System.out.println(questionItem.getOptions().getOptionC());
+                System.out.println(questionItem.getOptions().getOptionD());
                 System.out.println("Answer: " + questionItem.getAnswer());
                 
-                System.out.println();*/
+                System.out.println();
+                */
                 questions.add(questionItem);
             }
             jeopardyQuestions.setQuestions(questions);

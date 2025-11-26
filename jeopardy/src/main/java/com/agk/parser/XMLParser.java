@@ -22,12 +22,17 @@ public class XMLParser implements ParserInterface {
                 System.out.println("Value: " + q.getValue());
                 System.out.println("Question: " + q.getQuestion());
                 System.out.println("Options: ");
-                for (String option : q.getOptions()) {
-                    System.out.println(option);
-                }
+                //for (String option : q.getOptions()) {
+                  //  System.out.println(option);
+                //}
+                System.out.println(q.getOptions().getOptionA());
+                System.out.println(q.getOptions().getOptionB());
+                System.out.println(q.getOptions().getOptionC());
+                System.out.println(q.getOptions().getOptionD());
                 System.out.println("Answer: " + q.getAnswer());
                 System.out.println();
-            }*/
+            }
+            */
             return root;
         } catch (Exception e) {
             e.printStackTrace();
