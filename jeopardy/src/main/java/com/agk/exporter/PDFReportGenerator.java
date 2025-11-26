@@ -1,47 +1,38 @@
 // package com.agk.exporter;
-// import org.apache.pdfbox.pdmodel.*;
-// import org.apache.pdfbox.pdmodel.font.*;
+
+// import com.agk.model.GameResult;
+// import com.itextpdf.text.Document;
+// import com.itextpdf.text.Paragraph;
+// import com.itextpdf.text.pdf.PdfWriter;
+
+// import java.io.FileOutputStream;
 
 // public class PDFReportGenerator extends ReportGenerator {
 
-//     private PDDocument doc;
-//     private PDPageContentStream stream;
+//     private Document document;
 
 //     @Override
 //     protected void openDocument() {
 //         try {
-//             doc = new PDDocument();
-//             PDPage page = new PDPage();
-//             doc.addPage(page);
-//             stream = new PDPageContentStream(doc, page);
-//             stream.setLeading(14.5f);
-//             stream.beginText();
-//             stream.setFont(PDType1Font.HELVETICA, 12);
-//             stream.newLineAtOffset(25, 700);
+//             document = new Document();
+//             PdfWriter.getInstance(document, new FileOutputStream("report.pdf"));
+//             document.open();
 //         } catch (Exception e) {
-//             e.printStackTrace();
+//             throw new RuntimeException("Failed to open PDF file.", e);
 //         }
 //     }
 
 //     @Override
 //     protected void writeLine(String text) {
 //         try {
-//             stream.showText(text);
-//             stream.newLine();
+//             document.add(new Paragraph(text));
 //         } catch (Exception e) {
-//             e.printStackTrace();
+//             throw new RuntimeException("Failed to write PDF line.", e);
 //         }
 //     }
 
 //     @Override
 //     protected void closeDocument() {
-//         try {
-//             stream.endText();
-//             stream.close();
-//             doc.save("report.pdf");
-//             doc.close();
-//         } catch (Exception e) {
-//             e.printStackTrace();
-//         }
+//         document.close();
 //     }
 // }

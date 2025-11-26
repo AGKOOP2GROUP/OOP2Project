@@ -1,38 +1,39 @@
 // package com.agk.exporter;
-// import java.io.FileOutputStream;
 
-// import org.apache.poi.xwpf.usermodel.*;
+// import com.agk.model.GameResult;
+// import org.apache.poi.xwpf.usermodel.XWPFDocument;
+// import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+
+// import java.io.FileOutputStream;
 
 // public class DOCXReportGenerator extends ReportGenerator {
 
-//     private XWPFDocument doc;
+//     private XWPFDocument document;
 //     private FileOutputStream out;
 
 //     @Override
 //     protected void openDocument() {
 //         try {
-//             doc = new XWPFDocument();
+//             document = new XWPFDocument();
 //             out = new FileOutputStream("report.docx");
 //         } catch (Exception e) {
-//             e.printStackTrace();
+//             throw new RuntimeException("Failed to open DOCX file.", e);
 //         }
 //     }
 
 //     @Override
 //     protected void writeLine(String text) {
-//         XWPFParagraph p = doc.createParagraph();
-//         XWPFRun run = p.createRun();
-//         run.setText(text);
+//         XWPFParagraph p = document.createParagraph();
+//         p.createRun().setText(text);
 //     }
 
 //     @Override
 //     protected void closeDocument() {
 //         try {
-//             doc.write(out);
+//             document.write(out);
 //             out.close();
-//             doc.close();
 //         } catch (Exception e) {
-//             e.printStackTrace();
+//             throw new RuntimeException("Failed to save DOCX file.", e);
 //         }
 //     }
 // }

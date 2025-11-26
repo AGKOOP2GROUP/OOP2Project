@@ -52,7 +52,7 @@ public abstract class ReportGenerator {
             writeLine("Question: " + r.question);
             writeLine("Answer: " + r.answer +
                     " — " + (r.correct ? "Correct" : "Incorrect"));
-            writeLine("Score after turn: " + r.playerName + " = " + r.runningTotal);
+            writeLine("Score after turn: " + r.playerName + " = " + r.scoreAfterTurn);
             writeLine("");
 
             turn++;
