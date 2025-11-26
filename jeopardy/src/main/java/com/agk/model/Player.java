@@ -5,11 +5,13 @@ public class Player {
     private final String username;
     private int score = 0;
 
+    //constructor
     public Player(int id, String username){
         this.id = id;
         this.username = username;
     }
 
+    //getters
     public int getId(){
         return id;
     }
@@ -22,6 +24,7 @@ public class Player {
         return score;
     }
 
+    //when players answer questions their individual scores are adjusted
     public void updateScore(int marks){
         this.score += marks;
     }

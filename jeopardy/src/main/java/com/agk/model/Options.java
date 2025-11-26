@@ -1,3 +1,4 @@
+//Handles the options for a question item
 package com.agk.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -13,6 +14,7 @@ public class Options {
 
     public Options (){}
 
+    //getters for each option
     public String getOptionA(){
         return optionA;
     }
@@ -29,6 +31,7 @@ public class Options {
         return optionD;
     }
 
+    //setters for each option
     public void setOptionA(String optionA){
         this.optionA = optionA;
     }

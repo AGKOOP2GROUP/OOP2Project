@@ -1,3 +1,4 @@
+//concrete implementation of the parser interface to read xml files
 package com.agk.parser;
 
 import java.io.FileInputStream;
@@ -11,7 +12,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 public class XMLParser implements ParserInterface {
     @Override
     public JeopardyQuestions parseFile (){
-        try {
+        try {   //use XmlMapper to map the file input to the Jeopardy questions class (based on labels)
             XmlMapper mapper = new XmlMapper();
             InputStream input = new FileInputStream("jeopardy\\src\\main\\resources\\sample_game_XML.xml");
             JeopardyQuestions root = mapper.readValue(input, JeopardyQuestions.class);

@@ -1,3 +1,4 @@
+//concrete implementation of the parser interface for reading json file
 package com.agk.parser;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -24,18 +25,18 @@ public class JSONParser implements ParserInterface{
 
         try {
             reader = new BufferedReader(new FileReader(jsonFile));
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {    //read whole file line by line and store in a string
                 jsonStr += line;
                 jsonStr += "\n";
             }
         } catch (Exception e) {}
         
-        JSONArray jsonArr = new JSONArray(jsonStr);
+        JSONArray jsonArr = new JSONArray(jsonStr);     //convert the string into a JSONArray 
         //System.out.println(jsonArr);
 
         for (int i = 0; i < jsonArr.length(); i++) {
-            JSONObject object = jsonArr.getJSONObject(i);
-            QuestionItem questionItem = new QuestionItem();
+            JSONObject object = jsonArr.getJSONObject(i);   //get JSONObject within array
+            QuestionItem questionItem = new QuestionItem();     //create a new question item
             questionItem.setCategory(object.getString("Category"));
             questionItem.setValue(object.getInt("Value"));
             questionItem.setQuestion(object.getString("Question"));
@@ -61,7 +62,7 @@ public class JSONParser implements ParserInterface{
             System.out.println();
             */
             
-            questions.add(questionItem);
+            questions.add(questionItem);      //add question item to list of questions
         }
         jeopardyQuestions.setQuestions(questions);
         return jeopardyQuestions;

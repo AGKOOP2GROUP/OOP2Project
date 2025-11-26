@@ -1,3 +1,4 @@
+//Data is parsed into here 
 package com.agk.model;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ public class JeopardyQuestions {
         this.questions = new ArrayList<>();
     }
 
+    //get rid of wrapping element
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "QuestionItem")
     
@@ -27,7 +29,7 @@ public class JeopardyQuestions {
         List<String> categories = new ArrayList<>();
         if (questions == null) 
             return categories;
-        for (QuestionItem q : questions) {
+        for (QuestionItem q : questions) {      //to check if category is already listed
             if (!categories.contains(q.getCategory())) {
                 categories.add(q.getCategory());
             }

@@ -1,3 +1,4 @@
+//concrete implementation of the parser interface to parse a csv file
 package com.agk.parser;
 
 import java.io.BufferedReader;
@@ -26,11 +27,11 @@ public class CSVParser implements ParserInterface {
             reader = new BufferedReader(new FileReader(csvFile));
             line = reader.readLine(); // Skip header line
             while ((line = reader.readLine()) != null) {
-                String[] row = line.split(",");
+                String[] row = line.split(",");     //split each line at the commas
                 QuestionItem questionItem = new QuestionItem();
                 questionItem.setCategory(row[0]);
                 String val = row[1];
-                int valInt = Integer.parseInt(val);
+                int valInt = Integer.parseInt(val); //change string value to an int
                 questionItem.setValue(valInt);
                 questionItem.setQuestion(row[2]);
                 Options options = new Options();
@@ -38,7 +39,6 @@ public class CSVParser implements ParserInterface {
                 options.setOptionB(row[4]);
                 options.setOptionC(row[5]);
                 options.setOptionD(row[6]);
-                //String[] options = {row[3], row[4], row[5], row[6]};
                 questionItem.setOptions(options);
                 questionItem.setAnswer(row[7]);
                 /*
@@ -57,9 +57,9 @@ public class CSVParser implements ParserInterface {
                 
                 System.out.println();
                 */
-                questions.add(questionItem);
+                questions.add(questionItem);       //add to the list of questions
             }
-            jeopardyQuestions.setQuestions(questions);
+            jeopardyQuestions.setQuestions(questions);  
         } catch (Exception e) {
             e.printStackTrace();
         }

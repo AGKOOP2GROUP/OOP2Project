@@ -1,3 +1,4 @@
+//an individual question with its options and answer
 package com.agk.model;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 
@@ -15,6 +16,7 @@ public class QuestionItem {
 
     public QuestionItem(){}
 
+    //getters
     public String getCategory(){
         return category.toLowerCase();
     }  
@@ -36,6 +38,7 @@ public class QuestionItem {
         return answer;
     }
     
+    //setters
     public void setCategory(String category){
         this.category = category;
     }
