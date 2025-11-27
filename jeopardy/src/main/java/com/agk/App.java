@@ -3,8 +3,9 @@ package com.agk;
 
 import java.util.Scanner;
 
-// import com.agk.exporter.DOCXReportGenerator;
-// import com.agk.exporter.PDFReportGenerator;
+
+import com.agk.exporter.DOCXReportGenerator;
+import com.agk.exporter.PDFReportGenerator;
 import com.agk.exporter.ReportGenerator;
 import com.agk.exporter.TXTReportGenerator;
 import com.agk.model.JeopardyQuestions;
@@ -73,10 +74,72 @@ public class App
 
 
             ////////////////////////////////////////
-            ReportGenerator generator;
-            generator = new TXTReportGenerator();
+            
+        System.out.println("Which reports would you like to generate?");
+        System.out.println("Options: txt, pdf, docx, all, none");
+        String reportChoice = scanner.nextLine().trim().toLowerCase();
 
-            generator.generateReport(gameplay.getGameResult());
+        boolean generateTXT = false;
+        boolean generatePDF = false;
+        boolean generateDOCX = false;
+
+        // Validate input
+        switch (reportChoice) {
+            case "txt":
+                generateTXT = true;
+                break;
+            case "pdf":
+                generatePDF = true;
+                break;
+            case "docx":
+                generateDOCX = true;
+                break;
+            case "all":
+                generateTXT = true;
+                generatePDF = true;
+                generateDOCX = true;
+                break;
+            case "none":
+                System.out.println("No reports will be generated.");
+                break;
+            default:
+                System.out.println("Invalid input, defaulting to TXT report only.");
+                generateTXT = true;
+                break;
+        }
+
+    // Generate reports based on selection
+        ReportGenerator generator;
+        GameResult result = gameplay.getGameResult();
+
+
+        try {
+            if (generateTXT) {
+                ReportGenerator txtGenerator = new TXTReportGenerator();
+                txtGenerator.generateReport(gameplay.getGameResult());
+                System.out.println("TXT report generated successfully!");
+            }
+
+            if (generatePDF) {
+                ReportGenerator pdfGenerator = new PDFReportGenerator("jeopardy_game.pdf");
+                pdfGenerator.generateReport(gameplay.getGameResult());
+                System.out.println("PDF report generated successfully!");
+            }
+
+            if (generateDOCX) {
+                ReportGenerator docxGenerator = new DOCXReportGenerator();
+                docxGenerator.generateReport(gameplay.getGameResult());
+                System.out.println("DOCX report generated successfully!");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error generating report: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+
+
+        //    generator.generateReport(gameplay.getGameResult());
             
             /////////////////////////////////////////
 
@@ -88,3 +151,4 @@ public class App
     }
 }
 
+     
