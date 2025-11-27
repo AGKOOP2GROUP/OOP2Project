@@ -1,6 +1,7 @@
 //Main class that controls the running of the game
 package com.agk;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
@@ -8,12 +9,14 @@ import com.agk.exporter.DOCXReportGenerator;
 import com.agk.exporter.PDFReportGenerator;
 import com.agk.exporter.ReportGenerator;
 import com.agk.exporter.TXTReportGenerator;
+import com.agk.logger.ProcessMiningLogger;
 import com.agk.model.JeopardyQuestions;
 import com.agk.model.TurnRecord;
 import com.agk.parser.CSVParser;
 import com.agk.parser.JSONParser;
 import com.agk.parser.ParserContext;
 import com.agk.parser.XMLParser;
+import com.agk.model.GameEvent;
 import com.agk.model.GameResult;
 
 
@@ -40,6 +43,12 @@ public class App
         try {
             JeopardyQuestions questions = context.parse();  //read sample file using chosen parser
             Gameplay gameplay = new Gameplay(questions);    //create a new game
+
+            ProcessMiningLogger logger = ProcessMiningLogger.getInstance();
+            gameplay.addObserver(logger);
+
+     
+
             
             //Request and accept number of players from user
             System.out.print("Enter the number of players (1-4): ");
@@ -111,25 +120,40 @@ public class App
     // Generate reports based on selection
         ReportGenerator generator;
         GameResult result = gameplay.getGameResult();
-
+        
 
         try {
             if (generateTXT) {
                 ReportGenerator txtGenerator = new TXTReportGenerator();
-                txtGenerator.generateReport(gameplay.getGameResult());
+                txtGenerator.generateReport(result);
                 System.out.println("TXT report generated successfully!");
+
+                gameplay.notifyObservers(new GameEvent(
+                    result.getCaseId(), "System", "Generate TXT Report", LocalDateTime.now(),
+                    "TXT", 0, "", "Success", 0
+                ));
             }
 
             if (generatePDF) {
                 ReportGenerator pdfGenerator = new PDFReportGenerator("jeopardy_game.pdf");
-                pdfGenerator.generateReport(gameplay.getGameResult());
+                pdfGenerator.generateReport(result);
                 System.out.println("PDF report generated successfully!");
+
+                gameplay.notifyObservers(new GameEvent(
+                    result.getCaseId(), "System", "Generate PDF Report", LocalDateTime.now(),
+                    "PDF", 0, "", "Success", 0
+                ));
             }
 
             if (generateDOCX) {
                 ReportGenerator docxGenerator = new DOCXReportGenerator();
-                docxGenerator.generateReport(gameplay.getGameResult());
+                docxGenerator.generateReport(result);
                 System.out.println("DOCX report generated successfully!");
+
+                gameplay.notifyObservers(new GameEvent(
+                    result.getCaseId(), "System", "Generate DOCX Report", LocalDateTime.now(),
+                    "DOCX", 0, "", "Success", 0
+                ));
             }
 
         } catch (Exception e) {
@@ -137,6 +161,13 @@ public class App
             e.printStackTrace();
         }
 
+       
+
+        gameplay.notifyObservers(new GameEvent(
+            result.getCaseId(), "System", "Generate Event Log", LocalDateTime.now(),
+            "CSV", 0, "", "Success", 0
+        ));
+         logger.saveToCSV("game_event_log.csv");
 
 
         //    generator.generateReport(gameplay.getGameResult());

@@ -1,10 +1,13 @@
 //Handles the actual logic behind each round of the game
 package com.agk;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.agk.logger.EventObserver;
+import com.agk.model.GameEvent;
 import com.agk.model.GameResult;
 import com.agk.model.JeopardyQuestions;
 import com.agk.model.Player;
@@ -14,6 +17,7 @@ import com.agk.model.TurnRecord;
 public class Gameplay {
     //private String gameId;
     private List<Player> players = new ArrayList<>();
+    private List<EventObserver> observers = new ArrayList<>();
     private final JeopardyQuestions jeopardyQuestions;
     private int currPlayer = 0;
     Scanner scanner = new Scanner(System.in);
@@ -23,6 +27,16 @@ public class Gameplay {
     public Gameplay(JeopardyQuestions jeopardyQuestions) {  //constructor
         this.jeopardyQuestions = jeopardyQuestions;
     }
+    public void addObserver(EventObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers(GameEvent event) {
+        for (EventObserver observer : observers) {
+            observer.update(event);
+        }
+    }
+
 
     //getters
     public JeopardyQuestions getJeopardyQuestions() {
@@ -54,9 +68,23 @@ public class Gameplay {
         Player p = new Player(players.size() + 1, name);    //create player. id is determined by the order in which players join
         players.add(p);
         System.out.println("Player " + p.getId() + ": "+ name + " successfully added to the game!");    //success message
+        notifyObservers(new GameEvent(
+                result.getCaseId(),
+                name,
+                "Enter Player Name",
+                LocalDateTime.now(),
+                "",
+                0,
+                name,
+                "Added",
+                0
+        ));
     }
 
     public void play(){     //start game
+        notifyObservers(new GameEvent(result.getCaseId(), "System", "Start Game", LocalDateTime.now(), "", 0, "", "", 0));
+
+
         List<QuestionItem> questions = getJeopardyQuestions().getQuestions();
         System.out.println();
         System.out.println("Welcome to Jeopardy! The game begins now.");
@@ -66,6 +94,7 @@ public class Gameplay {
             Player player = players.get(currPlayer);    //current player for this round 
             System.out.println("Player " + player.getUsername() + "'s turn!");
 
+            
             System.out.println();
             showAvailable(getCategories());
             System.out.println();
@@ -78,6 +107,11 @@ public class Gameplay {
                 System.out.println("Thank you for playing!");
                 break;
             }
+
+
+            notifyObservers(new GameEvent(result.getCaseId(), player.getUsername(), "Select Category", LocalDateTime.now(), category, 0, "", "", player.getScore()));
+
+
             if (!((jeopardyQuestions.getAvailableCategories()).contains(category))){  //if category does not exist
                 System.out.println("Invalid category");
                 continue;
@@ -105,6 +139,8 @@ public class Gameplay {
                 System.out.println("Invalid value");
                 continue;
             }
+
+             notifyObservers(new GameEvent(result.getCaseId(), player.getUsername(), "Select Question", LocalDateTime.now(), category, value, "", "", player.getScore()));
 
             //filter questions by category and value to find the chosen question
             QuestionItem chosenQ = questions.stream().filter(q -> q.getCategory().equals(category) && q.getValue() == value && !(q.isUsed())).findFirst().orElse(null);
@@ -138,6 +174,7 @@ public class Gameplay {
             }
             chosenQ.setUsed(true);   //so question will not be asked again
 
+             notifyObservers(new GameEvent(result.getCaseId(), player.getUsername(), "Answer Question", LocalDateTime.now(), category, value, selectedAnswer, correct ? "Correct" : "Incorrect", player.getScore()));
             
             //display the player's current score
             System.out.println("Player " + player.getUsername() + "'s current score: " + player.getScore());
@@ -166,6 +203,8 @@ public class Gameplay {
 
 
         }
+
+        notifyObservers(new GameEvent(result.getCaseId(), "System", "End Game", LocalDateTime.now(), "", 0, "", "", 0));
         
         
     }
@@ -173,6 +212,7 @@ public class Gameplay {
     private boolean finished(){
         //System.out.println("No more questions available. Thank you for playing!");
         return jeopardyQuestions.getQuestions().stream().allMatch(QuestionItem::isUsed);
+        
     }
 
     private void showAvailable(List<String> categories){ // display board with categories and values available
